@@ -1,0 +1,111 @@
+* {
+    font-family: Georgia, serif;
+}
+   
+.img {
+    position: relative;
+}
+
+/* Bottom right text */
+.text-block {
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    background-color: black;
+    color: white;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.img {
+    position: relative;
+}
+body {
+    /* background-image: url('/static/img/forest.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover; */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Bottom right text */
+.text-block {
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    /* background-color: black; */
+    /* color: white; */
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.quote-block {
+    box-shadow: 4px 4px 4px 1px rgba(0,0,0,.2);
+    background-color: white;
+    margin:20px;
+    padding: 0px;
+    border-radius: 5px;
+}
+.quote-block:hover {
+    perspective-origin: left;
+    transform: perspective(50em) rotateY(1deg) rotateX(4deg);
+    transition-duration: 0.1s;
+}
+
+blockquote {
+    position: relative;
+    margin: 0.5em;
+    padding: 0.5em 2em 0.5em 3em;
+}
+/* Thanks: http://callmenick.com/post/styling-blockquotes-with-css-pseudo-classes */
+blockquote:before {
+    position: absolute;
+    font-size: 4em;
+    line-height: 1;
+    top: 0;
+    left: 0;
+    content: "\201C";
+}
+blockquote:after {
+    position: absolute;
+   /* display: block; don't use this, it raised the quote too high from the bottom - defeated line-height? */
+    float:right;
+    font-size:4em;
+    line-height: 1;
+    right:0;
+    bottom:-0.5em;
+    content: "\201D";
+}
+blockquote footer {
+    padding: 0 2em 0 0;
+    text-align:right;
+}
+blockquote cite:before {
+    content: "\2013";
+}
+
+#searchbar {
+    position: sticky;
+    top: 0px;
+    padding: 1em;
+    background-color: white;
+    z-index:10;
+}
+
+footer {
+    margin-top: auto;
+    padding: 2em;
+}
+
+.author-thumbnail {
+    position:left;
+    object-fit:contain;
+    margin:2em;
+    width:10em;
+    height:10em;
+    border-color: grey;
+    border-width: 1px;
+    border-style: solid!important;
+}

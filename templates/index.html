@@ -1,6 +1,7 @@
+{%load static%}
 <!DOCTYPE html>
 <html lang="en">
-
+<?xml version="1.0" encoding="UTF-8"?>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,81 +18,45 @@
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
 
-  <style>
-    .img {
-      position: relative;
-    }
-
-    /* Bottom right text */
-    .text-block {
-      position: absolute;
-      bottom: 6px;
-      right: 6px;
-      background-color: black;
-      color: white;
-      padding-left: 5px;
-      padding-right: 5px;
-    }
-  </style>
-
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
   <title>Quote Search</title>
 </head>
 
 <body>
-
-  <!-- Page Content -->
-  <div class="container">
+  <article style="width:50em; margin:auto;">
     <section class="jumbotron text-center" style="background-color: white;">
-      <form method="POST">
-        {% csrf_token %}
-        <div class="container">
-          <h1 class="jumbotron-heading">Quote Search</h1>
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" name="sentence" placeholder="What would you like to say better?" }>
-          </div>
-          <button class="btn-search" type="submit">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-              <path
-                d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z">
-              </path>
-            </svg>
-          </button>
-        </div>
-      </form>
+      <h1 class="jumbotron-header">Quote Search</h1>
     </section>
+    <form method="POST" id="searchbar">
+      {% csrf_token %}
+      <div class="container">
+        <div class="input-group">
+          <input type="text" class="form-control" name="sentence" placeholder="What would you like to say better?" }>
+          <div class="input-group-append">
+            <button class="btn btn-outline-primary" type="submit">🔍</button>
+          </div>
+        </div>
+      </div>
+    </form>
 
     <div class="container">
       {% for quote in quotes %}
-      <div class="row">
-        <!-- <img class="card-img-top" src="{{ quote.thumbnail }}" alt=""> -->
-
+      <div class="row quote-block">
         <div class="card-body">
+          <blockquote>{{ quote.quote }}</blockquote>
           <a href="/author/{{ quote.author }}/">{{ quote.author }}</a>
-          <h4 class="card-title"> {{ quote.quote }} </h4>
         </div>
         <div class="card-footer">
           <small class="text-muted"> {{ quote.id }} </small>
         </div>
       </div>
-      </a>
       {% endfor %}
-
     </div>
-    <!-- /.row -->
-
-
-  </div>
-  <!-- /.container -->
-
-  <!-- Footer -->
-  <footer class="py-5 bg-dark">
+  </article>
+  <footer class="bg-dark">
     <div class="container">
-      <p class="m-0 text-center text-white">&copy; Aymeric R 2023</p>
+      <p class="m-0 text-center text-white">&copy; Aymeric R. 2023</p>
     </div>
-    <!-- /.container -->
   </footer>
-
-
 </body>
-
 </html>

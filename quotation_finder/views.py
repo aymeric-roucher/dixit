@@ -31,7 +31,7 @@ def get_quote(sentence):
 
     sentence_embedding = get_embeddings([sentence], tokenizer, model).cpu().detach().numpy()
     scores, samples = embeddings_dataset.get_nearest_examples(
-        "embeddings", sentence_embedding, k=2
+        "embeddings", sentence_embedding, k=5
     )
     return samples
         

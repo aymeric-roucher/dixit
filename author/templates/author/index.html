@@ -1,13 +1,54 @@
+{%load static%}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Author</title>
-  </head>
-  <body>
-    <h1>Author</h1>
 
-    {{ author_name }}
-    
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
+
+  <title>Author</title>
+</head>
+
+<body>
+  <article style="max-width:50em; margin:auto;">
+    <div class="container" style="margin:auto;">
+      <section class="row" style="background-color: white;">
+        <img class="author-thumbnail" src="{{ picture_link }}" alt="">
+        <h1 class="jumbotron-header" style="margin:auto;margin-left:1em;">{{ author_name }}</h1>
+        {{ author_summary |safe}}
+        <section class="jumbotron text-center"><h4>~ Some quotes ~</h4></section>
+      </section>
+
+
+      <div class="container">
+        {% for quote in other_by_author %}
+        <div class="row quote-block">
+          <div class="card-body">
+            <blockquote>{{ quote }}</blockquote>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </article>
+  <footer class="bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">&copy; Aymeric R. 2023</p>
+    </div>
+  </footer>
+</body>
+
 </html>
