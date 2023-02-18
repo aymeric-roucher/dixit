@@ -1,8 +1,9 @@
 {%load static%}
 <!DOCTYPE html>
 <html lang="en">
-<?xml version="1.0" encoding="UTF-8"?>
-<head>
+  <link rel="icon" href="{% static 'icon/feather.png' %}" />
+  <title>Quote-Finder</title>
+  <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -17,14 +18,19 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alegreya+SC:wght@500&family=Gloock&family=Libre+Baskerville:ital@1&display=swap" rel="stylesheet"> 
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
   <title>Quote Search</title>
 </head>
 
 <body>
-  <article style="width:50em; margin:auto;">
+  <article style="display:flex; flex-direction: row; justify-content: center; align-items: center">
+    <div style="max-width:50em; min-width:60vw;">
     <section class="jumbotron text-center" style="background-color: white;">
+      <img src="{% static 'icon/feather-icon.svg' %}" style="width:5em;"/>
+
       <h1 class="jumbotron-header">Quote Search</h1>
     </section>
     <form method="POST" id="searchbar">
@@ -42,16 +48,14 @@
     <div class="container">
       {% for quote in quotes %}
       <div class="row quote-block">
-        <div class="card-body text-center">
+        <div class="card-body text-justify">
           <blockquote>{{ quote.quote }}</blockquote>
           <a href="/author/{{ quote.author }}/">{{ quote.author }}</a>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted"> {{ quote.id }} </small>
         </div>
       </div>
       {% endfor %}
     </div>
+  </div>
   </article>
   <footer class="bg-dark">
     <div class="container">

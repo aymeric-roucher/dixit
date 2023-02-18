@@ -1,7 +1,8 @@
 {%load static%}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-
+  <link rel="icon" href="{% static 'icon/feather.png' %}" />
+  <title>Quote-Finder</title>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,29 +18,45 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alegreya+SC:wght@500&family=Gloock&family=Libre+Baskerville:ital@1&display=swap" rel="stylesheet"> 
+  
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
-
   <title>Author</title>
 </head>
 
 <body>
+  
   <article style="max-width:50em; margin:auto;">
+    <div id="searchbar"><a href="/" class="text-center">👈 Back to searching quotes</a></div>
+    
     <div class="container" style="margin:auto;">
+
       <section class="row" style="background-color: white;">
         <section class="thumbnail-box">{% if found %}<img class="author-thumbnail" src="{{ picture_link }}" alt="">{% endif %}</section>
         <h1 class="jumbotron-header" style="margin:auto;margin-left:1em;">{{ author_name }}</h1>
         {% if found %}
-        <p style="text-align:justify;">{{ author_summary |safe}}</p>
+        <div class="justified-textbox">
+          {{ author_summary|safe }}
+        </div>
+        {% else %}
+        <p style="text-align:justify;">No description found for this author.</p>
         {% endif %}
         <p></p>
       </section>
-      <section class="row"><h4 style="margin:auto;">* * *</h4></section>
+      <section class="row">
+        <h4 style="margin:auto;">* * *</h4>
+      </section>
+      <section class="row">
+        <h5 style="margin:auto;"><i>{{ author_name }} quotes</i></h5>
+      </section>
 
       <div class="container">
         {% for quote in other_by_author %}
         <div class="row quote-block">
-          <div class="card-body">
-            <blockquote>{{ quote }}</blockquote>
+          <div class="card-body text-justify">
+            <blockquote><p>{{ quote }}</p></blockquote>
           </div>
         </div>
         {% endfor %}

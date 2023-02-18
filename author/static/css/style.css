@@ -6,49 +6,20 @@
     position: relative;
 }
 
-/* Bottom right text */
-.text-block {
-    position: absolute;
-    bottom: 6px;
-    right: 6px;
-    background-color: black;
-    color: white;
-    padding-left: 5px;
-    padding-right: 5px;
-}
-
-.img {
-    position: relative;
-}
 body {
-    /* background-image: url('/static/img/forest.svg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover; */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
-/* Bottom right text */
-.text-block {
-    position: absolute;
-    bottom: 6px;
-    right: 6px;
-    /* background-color: black; */
-    /* color: white; */
-    padding-left: 5px;
-    padding-right: 5px;
-}
 .quote-block {
     box-shadow: 4px 4px 4px 1px rgba(0,0,0,.2);
-    background-color: white;
     margin:20px;
     padding: 0px;
     border-radius: 5px;
     z-index:5;
 }
+
 .quote-block:hover {
     perspective-origin: left;
     transform: perspective(50em) rotateY(2deg) rotateX(5deg);
@@ -60,6 +31,7 @@ blockquote {
     margin: 0.5em;
     padding: 0.5em 2em 0.5em 3em;
 }
+
 /* Thanks: http://callmenick.com/post/styling-blockquotes-with-css-pseudo-classes */
 blockquote:before {
     position: absolute;
@@ -78,10 +50,6 @@ blockquote:after {
     right:0;
     bottom:-0.5em;
     content: "\201D";
-}
-blockquote footer {
-    padding: 0 2em 0 0;
-    text-align:right;
 }
 blockquote cite:before {
     content: "\2013";
@@ -113,4 +81,47 @@ footer {
     height:10em;
     padding:1em;
     object-fit: contain;
+}
+
+.justified-textbox p {
+    text-align:justify;
+    text-justify: inter-word;
+    text-align-last:center;
+}
+
+.text-justify {
+    text-align: justify !important;
+    text-justify: inter-word;
+    text-align-last:center;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Alegreya SC'!important;
+}
+
+a {
+    position: relative;
+    text-decoration: inherit;
+}
+  
+a::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    border-radius: 3px;
+    background-color: #000000;
+    bottom: -0.2em;
+    left: 0;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform .2s ease-in-out;
+}
+
+a:hover::before {
+transform-origin: left;
+transform: scaleX(1);
+}
+a:hover{
+    text-decoration: None;
 }
