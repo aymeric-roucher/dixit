@@ -26,12 +26,14 @@
   <article style="max-width:50em; margin:auto;">
     <div class="container" style="margin:auto;">
       <section class="row" style="background-color: white;">
-        <img class="author-thumbnail" src="{{ picture_link }}" alt="">
+        <section class="thumbnail-box">{% if found %}<img class="author-thumbnail" src="{{ picture_link }}" alt="">{% endif %}</section>
         <h1 class="jumbotron-header" style="margin:auto;margin-left:1em;">{{ author_name }}</h1>
-        {{ author_summary |safe}}
-        <section class="jumbotron text-center"><h4>~ Some quotes ~</h4></section>
+        {% if found %}
+        <p style="text-align:justify;">{{ author_summary |safe}}</p>
+        {% endif %}
+        <p></p>
       </section>
-
+      <section class="row"><h4 style="margin:auto;">* * *</h4></section>
 
       <div class="container">
         {% for quote in other_by_author %}

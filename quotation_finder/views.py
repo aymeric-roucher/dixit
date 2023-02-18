@@ -2,10 +2,10 @@
 from django.shortcuts import render
 import pandas as pd
 import os
+import pickle
 
 files = [f for f in os.listdir('.') if os.path.isfile(f)]
-print(files)
-import pickle
+
 model = pickle.load(open("model.pickle", "rb"))
 tokenizer = pickle.load(open("tokenizer.pickle", "rb"))
 embeddings_dataset = pickle.load(open("embeddings_dataset.pickle", "rb"))
@@ -30,7 +30,7 @@ def get_embeddings(text_list, tokenizer, model):
 def get_quote(sentence):
 
     sentence_embedding = get_embeddings([sentence], tokenizer, model).cpu().detach().numpy()
-    scores, samples = embeddings_dataset.get_nearest_examples(
+    _, samples = embeddings_dataset.get_nearest_examples(
         "embeddings", sentence_embedding, k=5
     )
     return samples
