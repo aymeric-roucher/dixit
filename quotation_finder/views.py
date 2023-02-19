@@ -3,6 +3,7 @@ from django.shortcuts import render
 import pandas as pd
 import os
 import pickle
+from django.views.decorators.csrf import csrf_protect
 
 files = [f for f in os.listdir('.') if os.path.isfile(f)]
 
@@ -36,6 +37,7 @@ def get_quote(sentence):
 
 
 # our result page view
+@csrf_protect
 def result(request):
     required_data = []
     sentence = ''

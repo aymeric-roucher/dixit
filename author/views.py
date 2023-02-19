@@ -1,13 +1,14 @@
 from django.shortcuts import render
 import requests
 import pandas as pd
+from django.views.decorators.csrf import csrf_protect
 
 quote_base = pd.read_csv('quotes_classical_clean.csv', sep='|')
 
 def index(request):
     return render(request, 'author/index.html')
 
-
+@csrf_protect
 def author_summary(request, author_name):
     author_request = requests.get(f'https://en.wikipedia.org/api/rest_v1/page/summary/{author_name.replace(" ", "_")}').json()
     if author_request['title'] == "Not found.":

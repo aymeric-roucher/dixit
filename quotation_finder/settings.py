@@ -27,7 +27,7 @@ with open(BASE_DIR / 'etc/secret_key.txt') as f:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.railway.com/', '127.0.0.1', '0.0.0.0:8000', '.heroku.com/']
+ALLOWED_HOSTS = ['.railway.com/', '127.0.0.1', '0.0.0.0:8000', '.heroku.com/', 'quotationfinder-production.up.railway.app']
 
 
 # Application definition
@@ -52,6 +52,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CSRF_TRUSTED_ORIGINS = ['https://quotationfinder-production.up.railway.app', 'https://127.0.0.1', 'https://*']
 
 ROOT_URLCONF = 'quotation_finder.urls'
 
@@ -136,4 +138,3 @@ STATICFILES_DIRS = (
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CSRF_TRUSTED_ORIGINS = ['https://quotationfinder-production.up.railway.app/', 'https://127.0.0.1', 'https://*']
