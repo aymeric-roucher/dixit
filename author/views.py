@@ -2,10 +2,10 @@ from django.shortcuts import render
 import requests
 import pandas as pd
 
-quote_base = pd.read_csv('quotes_clean.csv', sep='|')
+quote_base = pd.read_csv('quotes_classical_clean.csv', sep='|')
 
 def index(request):
-    return render(request, 'author/index.html', {'author': "OKOK"})
+    return render(request, 'author/index.html')
 
 
 def author_summary(request, author_name):
