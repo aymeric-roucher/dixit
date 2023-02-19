@@ -38,21 +38,18 @@ def get_quote(sentence):
 # our result page view
 def result(request):
     required_data = []
+    sentence = ''
     if request.method == "POST":
-        if request.POST['sentence'] == '':
-            messages.error(request, 'Please type something.')
-        else:
-            sentence = request.POST['sentence']
-            scores, results = get_quote(sentence)
-            results = pd.DataFrame.from_dict(results)
-            
-            for i, quote in results.iterrows():
-                quote_dict = {
-                    "quote": quote['quote'],
-                    "author": quote['author'],
-                    "category": quote['category'],
-                    'id': i,
-                }            
-                required_data.append(quote_dict)
+        sentence = request.POST['sentence']
+        scores, results = get_quote(sentence)
+        results = pd.DataFrame.from_dict(results)
+        for i, quote in results.iterrows():
+            quote_dict = {
+                "quote": quote['quote'],
+                "author": quote['author'],
+                "category": quote['category'],
+                'id': i,
+            }            
+            required_data.append(quote_dict)
 
-    return render(request, 'index.html', {'quotes':required_data})
+    return render(request, 'index.html', {'quotes':required_data, 'sentence':sentence})

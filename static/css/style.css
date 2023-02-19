@@ -44,7 +44,6 @@ blockquote:before {
 
 blockquote:after {
     position: absolute;
-   /* display: block; don't use this, it raised the quote too high from the bottom - defeated line-height? */
     float:right;
     font-size:4em;
     line-height: 1;
