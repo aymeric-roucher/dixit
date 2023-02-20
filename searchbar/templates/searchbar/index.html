@@ -38,12 +38,12 @@
         <h1 class="jumbotron-header">Quote Search</h1>
       </section>
 
-      <form action="{% url 'searchbar' %}"method="POST" id="searchbar" name="submitForm">
+      <form action="{% url 'searchbar' %}" autocomplete="off" method="POST" id="searchbar" name="submitForm">
         {% csrf_token %}
         <div class="form-row">
           <div class="form-group col-12">
             <div class="input-group">
-              <input type="text" class="form-control text-center" onclick="this.placeholder = ''" name="sentence" placeholder="{{ sentence }}" }>
+              <input type="text" class="form-control text-center" onclick="this.placeholder = ''" name="sentence" placeholder="{{ sentence }}" autocomplete="false">
               <div class="input-group-append">
                 <button class="btn btn-outline-primary" type="submit">🔍</button>
               </div>
