@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['.railway.com/', '127.0.0.1', '0.0.0.0:8000', '.heroku.com/', '
 # Application definition
 
 INSTALLED_APPS = [
+    'searchbar',
     'author',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -83,6 +84,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+    },
+    'author_search_author': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'author_db.sqlite3',
     }
 }
 
@@ -129,9 +134,7 @@ USE_TZ = True
 import os
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
-)
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_protect
 
 quote_base = pd.read_csv('quotes_classical_clean.csv', sep='|')
 
-def index(request):
+def no_author(request):
     return render(request, 'author/index.html')
 
 @csrf_protect

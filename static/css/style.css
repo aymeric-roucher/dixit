@@ -1,7 +1,7 @@
 * {
     font-family: Georgia, serif;
 }
-   
+
 .img {
     position: relative;
 }
@@ -13,11 +13,11 @@ body {
 }
 
 .quote-block {
-    box-shadow: 4px 4px 4px 1px rgba(0,0,0,.2);
-    margin:20px;
+    box-shadow: 4px 4px 4px 1px rgba(0, 0, 0, .2);
+    margin: 20px;
     padding: 0px;
     border-radius: 5px;
-    z-index:5;
+    z-index: 5;
 }
 
 .quote-block:hover {
@@ -44,13 +44,14 @@ blockquote:before {
 
 blockquote:after {
     position: absolute;
-    float:right;
-    font-size:4em;
+    float: right;
+    font-size: 4em;
     line-height: 1;
-    right:0;
-    bottom:-0.5em;
+    right: 0;
+    bottom: -0.5em;
     content: "\201D";
 }
+
 blockquote cite:before {
     content: "\2013";
 }
@@ -60,7 +61,7 @@ blockquote cite:before {
     top: 0px;
     padding: 1em;
     background-color: white;
-    z-index:10;
+    z-index: 10;
 }
 
 footer {
@@ -69,41 +70,46 @@ footer {
 }
 
 .author-thumbnail {
-    margin:auto;
-    margin-top:auto;
-    border-radius:3px;
-    max-width:100%;
-    max-height:100%;
+    margin: auto;
+    margin-top: auto;
+    border-radius: 3px;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .thumbnail-box {
-    width:10em;
-    height:10em;
-    padding:1em;
+    width: 10em;
+    height: 10em;
+    padding: 1em;
     object-fit: contain;
 }
 
 .justified-textbox p {
-    text-align:justify;
+    text-align: justify;
     text-justify: inter-word;
-    text-align-last:center;
+    text-align-last: center;
 }
 
 .text-justify {
     text-align: justify !important;
     text-justify: inter-word;
-    text-align-last:center;
+    text-align-last: center;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Alegreya SC'!important;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Alegreya SC' !important;
 }
 
 a {
     position: relative;
     text-decoration: inherit;
 }
-  
+
 a::before {
     content: '';
     position: absolute;
@@ -119,9 +125,126 @@ a::before {
 }
 
 a:hover::before {
-transform-origin: left;
-transform: scaleX(1);
+    transform-origin: left;
+    transform: scaleX(1);
 }
-a:hover{
+
+a:hover {
     text-decoration: None;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+
+.form-control:focus {
+    border-color: #66afe9;
+    outline: 0;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+}
+
+.btn {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    text-decoration: none;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #286090;
+    border-color: #204d74;
+}
+
+.fa-search {
+    margin-right: 5px;
+}
+
+label {
+    display: block;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-around;
+}
+
+.form-group.col {
+    flex: 1;
+}
+
+.collapse {
+    display: none;
+}
+
+.collapse.show {
+    display: block;
+    flex-wrap: wrap;
+}
+.btn-link {
+    color: #337ab7;
+    font-weight: normal;
+    border-radius: 0;
+    border: none;
+    padding: 0;
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+.btn-link:focus,
+.btn-link:hover {
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+.fa-angle-down {
+    margin-left: 5px;
+    transition: transform ease-in-out 0.15s;
+}
+
+.btn-link[aria-expanded="true"] .fa-angle-down {
+    display: none;
+}
+
+.btn-link[aria-expanded="true"] .fa-angle-down {
+    display: inline-block;
+    transform: rotate(180deg);
+}
+
+#advanced-search-button {
+    margin:auto;
 }

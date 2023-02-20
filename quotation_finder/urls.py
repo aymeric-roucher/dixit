@@ -15,11 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
-from . import views
+from django.shortcuts import redirect
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home, name='home'),
-    path('author/', include('author.urls')),
+    path('', lambda req: redirect('/searchbar/')),
+    path('author/', include('author.urls'), name="author"),
+    path('searchbar/', include('searchbar.urls'), name="searchbar"),
 ]
