@@ -4,7 +4,7 @@
   <link rel="icon" href="{% static 'icon/feather.png' %}" />
   <title>Quote-Finder</title>
 <head>
-  <meta charset="UTF-8" />
+  <meta http-equiv="content-type" content="text/html" charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Alegreya+SC:wght@500&family=Gloock&family=Libre+Baskerville:ital@1&display=swap" rel="stylesheet"> 
-  
+
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
   <title>Author</title>
 </head>
@@ -30,8 +30,13 @@
   
   <article style="max-width:50em; margin:auto;">
     
-    <div id="searchbar">{% csrf_token %}<a href="/" class="text-center">👈 Back to searching quotes</a></div>
-    
+    <div id="searchbar">
+    <form action="/">
+      {% csrf_token %}
+      <button class="btn btn-secondary" type="submit">👈 Back to searching quotes</button>
+    </form>
+    </div>
+
     <div class="container" style="margin:auto;">
 
       <section class="row" style="background-color: white;">

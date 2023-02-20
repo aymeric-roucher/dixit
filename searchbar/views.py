@@ -9,9 +9,7 @@ files = [f for f in os.listdir(".") if os.path.isfile(f)]
 
 model = pickle.load(open("model.pickle", "rb"))
 embeddings_dataset = pickle.load(open("embeddings_dataset.pickle", "rb"))
-embeddings_dataset.drop_index('embeddings')
 authors_unique = np.unique(embeddings_dataset["author"])
-dataset_embeddings = np.array(embeddings_dataset["embeddings"]).astype(np.float32)
 
 
 def index(request):
@@ -31,17 +29,12 @@ def get_embeddings(text_list, tokenizer, model):
     return cls_pooling(model_output)
 
 
-def get_quote(sentence, author_name=None, k=10):
+def get_quote(sentence, k=30):
     sentence_embedding = model.encode([sentence])
-    if author_name is None or len(author_name) == 0:
-        hits = semantic_search(sentence_embedding, dataset_embeddings, top_k=k)
-        hits = [i['corpus_id'] for i in author_hits[0]]
-    else:
-        authors = list(embeddings_dataset["author"])
-        author_indexes = [i for i in range(len(authors)) if authors[i] == author_name]
-        author_hits = semantic_search(sentence_embedding, dataset_embeddings[author_indexes, :], top_k=k)
-        hits = [author_indexes[i['corpus_id']] for i in author_hits[0]]
-    return {key: np.array(embeddings_dataset[key])[hits] for key in ['quote', 'author', 'category']}
+    scores, samples = embeddings_dataset.get_nearest_examples(
+        "embeddings", sentence_embedding, k=k
+    )
+    return samples
 
 
 # our result page view
@@ -52,8 +45,8 @@ def show_searchbar(request):
     selected_author = None
     if request.method == "POST":
         sentence = request.POST["sentence"]
-        selected_author = request.POST["selected_author"]
-        results = get_quote(sentence, selected_author)
+        # selected_author = request.POST["selected_author"]
+        results = get_quote(sentence)
         for i in range(len(list(results.values())[0])):
             quote_dict = {
                 "quote": results["quote"][i],

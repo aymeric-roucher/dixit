@@ -1,5 +1,6 @@
 {%load static%}
 <!DOCTYPE html>
+
 <html lang="en">
 <link rel="icon" href="{% static 'icon/feather.png' %}" />
 <title>Quote-Finder</title>
@@ -8,6 +9,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Quote Search</title>
+  <script src="https://cdn.websitepolicies.io/lib/cookieconsent/cookieconsent.min.js" defer></script>
+  <script>window.addEventListener("load", function () { window.wpcc.init({ "border": "thin", "corners": "small", "colors": { "popup": { "background": "#f6f6f6", "text": "#000000", "border": "#555555" }, "button": { "background": "#555555", "text": "#ffffff" } } }) });</script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=YOURTAGID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'YOURTAGID');
+  </script>
+
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -26,7 +41,6 @@
     rel="stylesheet">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
-  <title>Quote Search</title>
 </head>
 
 <body>
@@ -38,52 +52,54 @@
         <h1 class="jumbotron-header">Quote Search</h1>
       </section>
 
-      <form action="{% url 'searchbar' %}" autocomplete="off" method="POST" id="searchbar" name="submitForm">
-        {% csrf_token %}
-        <div class="form-row">
-          <div class="form-group col-12">
-            <div class="input-group">
-              <input type="text" class="form-control text-center" onclick="this.placeholder = ''" name="sentence" placeholder="{{ sentence }}" autocomplete="false">
-              <div class="input-group-append">
-                <button class="btn btn-outline-primary" type="submit">🔍</button>
-              </div>
-            </div>
+      <div class="row" id="searchbar">
+        <form class="col-7" action="{% url 'searchbar' %}" autocomplete="off" method="POST" name="submitForm">
+          {% csrf_token %}
+          <div class="input-group">
+            <input type="text" class="form-control" onclick="this.placeholder = ''" name="sentence" placeholder=""
+              autocomplete="false" id="sentence_input" required>
+            <label for="sentence_input" id="label_sentence_input"><b>Search for an idea</b></label>
+            <button type="submit" class="btn input-btn">🔍</button>
           </div>
-        </div>
-        <div class="collapse" id="advanced-search">
-          <div class="form-row" style="padding:1em;">
-            <div class="form-group col-8">
-              <input type="text" id="author" name="selected_author", list="authors", class="form-control" placeholder="Filter by author name...">
-              <datalist id="authors">
-                {% for author in authors_list %}
-                <option value="{{author}}"></option>
-                {% endfor %}
-              </datalist>
-            </div>
-            <div class="form-group col-4">
-              <select id="topic" class="form-control">
-                <option value="">All languages</option>
-                <option value="english">English only</option>
-              </select>
-            </div>
+        </form>
+        <form class="col-5" action="{% url 'author' %}" method="POST">
+          {% csrf_token %}
+          <div class="input-group">
+            <input type="text" class="form-control" id="author_filter" name="author_name" list="authors" ,
+              autocomplete="off" required>
+            <label for="author_filter" id="label_author_filter"><b>Quotes from an author</b></label>
+            <button type="submit" class="btn input-btn">🔍</button>
           </div>
+          <datalist id="authors">
+            {% for author in authors_list %}
+            <option value="{{author}}"></option>
+            {% endfor %}
+          </datalist>
+        </form>
+      </div>
+      <div class="row">
+        <div class="row col-7" style="display:flex;flex-direction:row;justify-content:space-around;align-items:center;">
+          <p style="position:absolute;top:0;left:0;">Ideas of subjects:</p>
+          <button type="button" class="btn btn-primary"
+            onclick="SearchConcept('Ecology is mandatory, we must protect the planet.')">🌍 Ecology</button>
+          <button type="button" class="btn btn-primary" onclick="SearchConcept('Knowledge of history is power.')">🏛
+            History</button>
+          <button type="button" class="btn btn-primary" onclick="SearchConcept('War never changes.')">⚔ War</button>
         </div>
-        <div class="form-row">
-          <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#advanced-search"
-            aria-expanded="false" aria-controls="advanced-search" id="advanced-search-button">
-            Advanced search options
-            <i class="fa fa-angle-down"></i>
-          </button>
+        <div class="row col-5" style="display:flex;flex-direction:row;justify-content:space-around;align-items:center;">
+          <p style="position:absolute;top:0;left:0;">Authors:</p>
+          <button type="button" class="btn btn-primary"
+            onclick="SearchAuthor('Antoine de Saint-Exupery')">Saint-Exupéry</button>
+          <button type="button" class="btn btn-primary" onclick="SearchAuthor('Lord Byron')">Lord Byron</button>
         </div>
-      </form>
-
+      </div>
 
       <div class="container">
         {% for quote in quotes %}
         <div class="row quote-block">
           <div class="card-body text-justify">
             <blockquote>{{ quote.quote }}</blockquote>
-            <a href="/author/{{ quote.author }}/">{{ quote.author }}</a>
+            <a href="/author/{{ quote.author }}/"><b>{{ quote.author }}</b></a>
           </div>
         </div>
         {% endfor %}
@@ -96,5 +112,34 @@
     </div>
   </footer>
 </body>
+
+<script>
+  var sentence_input = document.getElementById("sentence_input");
+  var author_input = document.getElementById("author_filter");
+
+  var label_sentence_input = document.getElementById("label_sentence_input");
+  var label_author_filter = document.getElementById("label_author_filter");
+
+  function SearchConcept(sentence) {
+    sentence_input.value = sentence;
+    sentence_input.focus();
+  }
+  function SearchAuthor(author_name) {
+    author_input.value = author_name;
+    author_input.focus();
+  }
+  sentence_input.addEventListener("focus", function () {
+    label_sentence_input.style.color = 'var(--dark)';
+    label_sentence_input.style.fontSize = '.75em';
+    label_sentence_input.style.top = '-1.75em';
+    label_sentence_input.style.pointerEvents = 'none';
+  });
+  author_filter.addEventListener("focus", function () {
+    label_author_filter.style.color = 'var(--dark)';
+    label_author_filter.style.fontSize = '.75em';
+    label_author_filter.style.top = '-1.75em';
+    label_author_filter.style.pointerEvents = 'none';
+  });
+</script>
 
 </html>

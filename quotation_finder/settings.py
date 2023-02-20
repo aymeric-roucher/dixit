@@ -27,7 +27,7 @@ with open(BASE_DIR / 'etc/secret_key.txt') as f:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.railway.com/', '127.0.0.1', '0.0.0.0:8000', '.heroku.com/', 'quotationfinder-production.up.railway.app']
+ALLOWED_HOSTS = ['.railway.com/', '127.0.0.1', '0.0.0.0:8000', 'quotationfinder-production.up.railway.app']
 
 
 # Application definition
