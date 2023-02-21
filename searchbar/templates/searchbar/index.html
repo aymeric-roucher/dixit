@@ -13,15 +13,17 @@
   <script src="https://cdn.websitepolicies.io/lib/cookieconsent/cookieconsent.min.js" defer></script>
   <script>window.addEventListener("load", function () { window.wpcc.init({ "border": "thin", "corners": "small", "colors": { "popup": { "background": "#f6f6f6", "text": "#000000", "border": "#555555" }, "button": { "background": "#555555", "text": "#ffffff" } } }) });</script>
 
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=YOURTAGID"></script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-71TRNQR9F7"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
 
-    gtag('config', 'YOURTAGID');
+    gtag('config', 'G-71TRNQR9F7');
   </script>
+
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -78,16 +80,14 @@
         </form>
       </div>
       <div class="row">
-        <div class="row col-7" style="display:flex;flex-direction:row;justify-content:space-around;align-items:center;">
-          <p style="position:absolute;top:0;left:0;">Ideas of subjects:</p>
+        <div class="row col-7" style="display:flex;flex-direction:row;gap:0.4em;padding-left: 3em;">
           <button type="button" class="btn btn-primary"
             onclick="SearchConcept('Ecology is mandatory, we must protect the planet.')">🌍 Ecology</button>
           <button type="button" class="btn btn-primary" onclick="SearchConcept('Knowledge of history is power.')">🏛
             History</button>
           <button type="button" class="btn btn-primary" onclick="SearchConcept('War never changes.')">⚔ War</button>
         </div>
-        <div class="row col-5" style="display:flex;flex-direction:row;justify-content:space-around;align-items:center;">
-          <p style="position:absolute;top:0;left:0;">Authors:</p>
+        <div class="row col-5" style="display:flex;flex-direction:row;gap:0.4em;padding-left: 4em;">
           <button type="button" class="btn btn-primary"
             onclick="SearchAuthor('Antoine de Saint-Exupery')">Saint-Exupéry</button>
           <button type="button" class="btn btn-primary" onclick="SearchAuthor('Lord Byron')">Lord Byron</button>
