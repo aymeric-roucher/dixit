@@ -55,7 +55,8 @@
       </section>
 
       <div class="row" id="searchbar">
-        <form class="col-7" action="{% url 'searchbar' %}" autocomplete="off" method="POST" name="submitForm">
+        <form class="col-md-7" action="{% url 'searchbar' %}" autocomplete="off" method="POST" name="submitForm"
+          style="margin-top:0.3em;">
           {% csrf_token %}
           <div class="input-group">
             <input type="text" class="form-control" onclick="this.placeholder = ''" name="sentence" placeholder=""
@@ -64,7 +65,7 @@
             <button type="submit" class="btn input-btn">🔍</button>
           </div>
         </form>
-        <form class="col-5" action="{% url 'author' %}" method="POST">
+        <form class="col-md-5" action="{% url 'author' %}" method="POST" style="margin-top:0.3em;">
           {% csrf_token %}
           <div class="input-group">
             <input type="text" class="form-control" id="author_filter" name="author_name" list="authors" ,
@@ -94,13 +95,11 @@
         </div>
       </div>
 
-      <div class="container">
+      <div class="container-fluid p-0">
         {% for quote in quotes %}
-        <div class="row quote-block">
-          <div class="card-body text-justify">
-            <blockquote>{{ quote.quote }}</blockquote>
-            <a href="/author/{{ quote.author }}/"><b>{{ quote.author }}</b></a>
-          </div>
+        <div class="quote-block text-justify">
+          <blockquote>{{ quote.quote }}</blockquote>
+          <a href="/author/{{ quote.author }}/"><b>{{ quote.author }}</b></a>
         </div>
         {% endfor %}
       </div>
