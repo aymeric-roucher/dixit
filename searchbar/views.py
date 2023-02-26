@@ -13,11 +13,10 @@ cursor = conn.cursor()
 files = [f for f in os.listdir(".") if os.path.isfile(f)]
 
 model = pickle.load(open("model.pickle", "rb"))
-# embeddings_dataset = pickle.load(open("embeddings_dataset.pickle", "rb"))
 
 sql_authors = '''select name from authors;'''
 cursor.execute(sql_authors)
-authors_unique = cursor.fetchall()
+authors_unique = [tuple[0] for tuple in cursor.fetchall()]
 faiss_index = faiss.read_index('index_alone.faiss')
 
 def index(request):
@@ -39,15 +38,16 @@ def get_embeddings(text_list, tokenizer, model):
 
 def get_quote(sentence, k=30):
     sentence_embedding = model.encode([sentence])
-    scores, samples = faiss_index.search(
+    _, samples = faiss_index.search(
         sentence_embedding, k=10
     )
-    sql3 = '''
-    select * from quotes WHERE index in (1, 2, 3);
-    '''
+    sql3 = f'''
+    SELECT quotes_result.index, quotes_result.quote, authors.name, authors.description \
+    FROM (SELECT * FROM quotes WHERE index in {tuple(samples[0])}) as quotes_result\
+    LEFT JOIN authors \
+    ON quotes_result.author = authors.name;'''
     cursor.execute(sql3)
     samples = cursor.fetchall()
-    print(samples)
     return samples
 
 
@@ -56,17 +56,15 @@ def get_quote(sentence, k=30):
 def show_searchbar(request):
     required_data = []
     sentence = ""
-    selected_author = None
     if request.method == "POST":
         sentence = request.POST["sentence"]
-        # selected_author = request.POST["selected_author"]
         results = get_quote(sentence)
-        for i in range(len(list(results.values())[0])):
+        for i in range(len(results)):
             quote_dict = {
-                "quote": results["quote"][i],
-                "author": results["author"][i],
-                "category": results["category"][i],
-                "id": i,
+                "quote": results[i][1],
+                "author": results[i][2],
+                "author_description": results[i][3],
+                "id": results[i][0],
             }
             required_data.append(quote_dict)
 

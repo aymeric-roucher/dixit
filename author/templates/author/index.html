@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-  <script data-goatcounter="https://quotation-finder.goatcounter.com/count"
+  <script data-goatcounter="https://dixit.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -36,7 +36,7 @@
     <div id="searchbar">
     <form action="/">
       {% csrf_token %}
-      <button class="btn btn-secondary" type="submit">👈 Back to searching quotes</button>
+      <button class="btn btn-secondary shadow-none" type="submit">👈 Back to searching quotes</button>
     </form>
     </div>
 
@@ -72,11 +72,9 @@
       </div>
     </div>
   </article>
-  <footer class="bg-dark">
-    <div class="container">
-      <p class="m-0 text-center text-white">&copy; Aymeric R. 2023</p>
-    </div>
-  </footer>
+
+  <!-- Footer -->
+  {% include 'footer.html' %}
 </body>
 
 </html>

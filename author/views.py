@@ -11,14 +11,12 @@ cursor = conn.cursor()
 def no_author(request):
     if request.method == "POST":
         author_name = request.POST["author_name"]
-        print("BASE AUTHOR NAME", author_name)
         return author_summary(request, author_name)
     return render(request, "author/index.html")
 
 
 @csrf_protect
 def author_summary(request, author_name):
-    print(author_name)
     sql = "SELECT quote FROM quotes WHERE author = %(author_name)s;"
     cursor.execute(sql, {"author_name": author_name})
     author_quotes = [row[0].replace("`", "'") for row in cursor.fetchmany(100)]

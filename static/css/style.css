@@ -28,7 +28,7 @@ body {
 
 .quote-block:hover {
     perspective-origin: left;
-    transform: perspective(500em) scale(1.02) translateZ(0);
+    transform: scale(1.02);
     transition-duration: 0.2s;
     backface-visibility: hidden;
     -webkit-font-smoothing: subpixel-antialiased;
@@ -68,7 +68,8 @@ blockquote cite:before {
 
 #searchbar {
     padding: 1em;
-    padding-top: 1.4em; /* to accomodate for input labels*/
+    padding-top: 1.4em;
+    /* to accomodate for input labels*/
 }
 
 footer {
@@ -118,8 +119,9 @@ a {
     color: var(--accent2);
     font-weight: medium;
 }
+
 a:hover {
-    color:var(--dark);
+    color: var(--dark);
     text-decoration: None;
     transition: .2s ease-in-out;
 }
@@ -167,14 +169,18 @@ a:hover::before {
 }
 
 .btn {
-    background-color: var(--dark);
-    border:none;
+    background-color: var(--accent);
+    border: none;
 }
 
 .btn:focus,
 .btn:hover {
     background-color: var(--accent2);
-    outline:0;
+    outline: none!important;
+}
+.btn:active, .btn:active:focus, .btn:disabled {
+    background-color: var(--accent2)!important;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6)!important;
 }
 
 /* label,input{
@@ -182,37 +188,38 @@ a:hover::before {
     flex-direction:column;
 } */
 
-.field-holder{
-    position:relative;
-    margin-bottom:1.25em;
+.field-holder {
+    position: relative;
+    margin-bottom: 1.25em;
 }
 
-label{
-    position:absolute;
-    color:var(--lighter);
-    top:0.3em;
-    font-family: Arial, sans-serif!important;
-    left:1em;
-    display:flex;
-    align-items:center;
-    cursor:text;
+label {
+    position: absolute;
+    color: var(--lighter);
+    top: 0.3em;
+    font-family: Arial, sans-serif !important;
+    left: 1em;
+    display: flex;
+    align-items: center;
+    cursor: text;
     transition: .2s ease-in-out;
-    z-index:3;
+    z-index: 3;
 }
 
 .nostyle {
-    outline:none;
-    color:none;
+    outline: none;
+    color: none;
     border-style: none;
-    border:none;
+    border: none;
     background-color: white;
 }
 
 .form-control:focus {
     outline: none;
-    border:none;
-    box-shadow:none
+    border: none;
+    box-shadow: none
 }
+
 .form-control {
     outline: none;
 }
@@ -220,3 +227,4 @@ label{
 .input-btn {
     border-radius: 0px 4px 4px 0px;
 }
+
