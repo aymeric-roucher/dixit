@@ -30,7 +30,7 @@ with open(BASE_DIR / 'etc/secret_key.txt') as f:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.railway.com/', '127.0.0.1', '0.0.0.0:8000', 'quotationfinder-production.up.railway.app']
+ALLOWED_HOSTS = ['.railway.com/', '127.0.0.1', '0.0.0.0:8000', 'dixit.up.railway.app']
 
 
 # Application definition
@@ -57,7 +57,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CSRF_TRUSTED_ORIGINS = ['https://quotationfinder-production.up.railway.app', 'https://127.0.0.1', 'https://*']
+CSRF_TRUSTED_ORIGINS = ['https://dixit.up.railway.app', 'https://127.0.0.1']
 
 ROOT_URLCONF = 'dixit.urls'
 
@@ -143,4 +143,3 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
