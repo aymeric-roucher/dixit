@@ -2,8 +2,10 @@ from django.shortcuts import render
 import requests
 import pandas as pd
 from django.views.decorators.csrf import csrf_protect
+from scripts import open_sql_connection
 
-quote_base = pd.read_csv("quotes_classical_clean.csv", sep="|")
+conn = open_sql_connection()
+cursor = conn.cursor()
 
 
 def no_author(request):
@@ -16,39 +18,29 @@ def no_author(request):
 
 @csrf_protect
 def author_summary(request, author_name):
-    try:
-        author_request = requests.get(
-            f'https://en.wikipedia.org/api/rest_v1/page/summary/{author_name.replace(" ", "_")}',
-            timeout=1,
-        ).json()
-    except:
-        author_request = None
-    if author_request is None or author_request["title"] == "Not found.":
-        author_data = {
-            "author_name": author_name,
-            "found": False,
-            "author_summary": None,
-            "picture_link": None,
-            "other_by_author": list(
-                quote_base.loc[quote_base["author"] == author_name, "quote"].values[
-                    :100
-                ]
-            ),
-        }
-    else:
-        author_data = {
-            "author_name": author_name,
+    print(author_name)
+    sql = "SELECT quote FROM quotes WHERE author = %(author_name)s;"
+    cursor.execute(sql, {"author_name": author_name})
+    author_quotes = [row[0].replace("`", "'") for row in cursor.fetchmany(100)]
+    author_data = {
+        "author_name": author_name,
+        "found": False,
+        "author_summary": None,
+        "picture_link": None,
+        "other_by_author": author_quotes,
+    }
+    sql = "SELECT description, extract_html, thumbnail_url FROM authors WHERE name = %(author_name)s;"
+    cursor.execute(sql, {"author_name": author_name})
+    author_row = cursor.fetchone()
+    if author_row is None:
+        return render(request, "author/index.html", author_data)
+
+    _, extract_html, thumbnail_url = author_row
+    author_data.update(
+        {
             "found": True,
-            "author_summary": author_request["extract_html"],
-            "picture_link": (
-                author_request["thumbnail"]["source"]
-                if "thumbnail" in author_request.keys()
-                else ""
-            ),
-            "other_by_author": list(
-                quote_base.loc[quote_base["author"] == author_name, "quote"].values[
-                    :100
-                ]
-            ),
+            "author_summary": extract_html,
+            "picture_link": thumbnail_url,
         }
+    )
     return render(request, "author/index.html", author_data)

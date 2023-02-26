@@ -6,7 +6,7 @@ body {
     --dark: #6b5641;
     --accent: #2b345b;
     --lighter: #b9936a;
-    --light: #fef7e8;
+    --light: #eedaa4;
     --accent2: #aa4733;
     min-height: 100vh;
     display: flex;
@@ -20,17 +20,11 @@ body {
 
 .quote-block {
     box-shadow: 4px 4px 4px 1px rgba(0, 0, 0, .2);
-    margin: 0.5em;
-    padding: 1em;
+    margin: 20px;
+    padding: 0px;
     border-radius: 5px;
     z-index: 5;
-    --quotes-font-size: 4em;
-    border-width: 1px;
-    border-color: var(--accent2);
-    border-style: solid;
-    /* background-color: var(--light); */
 }
-
 
 .quote-block:hover {
     perspective-origin: left;
@@ -42,25 +36,14 @@ body {
 
 blockquote {
     position: relative;
-    padding: 0 2.5em 0 2.5em;
-    margin: 0;
+    margin: 0.5em;
+    padding: 0em 3em 0em 3em;
 }
-
-@media (max-width: 600px) {
-    blockquote {
-        margin: 0.2em;
-    }
-
-    .quote-block {
-        --quotes-font-size: 3em;
-    }
-}
-
 
 /* Thanks: http://callmenick.com/post/styling-blockquotes-with-css-pseudo-classes */
 blockquote:before {
     position: absolute;
-    font-size: var(--quotes-font-size);
+    font-size: 4em;
     line-height: 1;
     top: 0;
     left: 0;
@@ -71,9 +54,10 @@ blockquote:before {
 blockquote:after {
     position: absolute;
     float: right;
-    font-size: var(--quotes-font-size);
+    font-size: 4em;
     line-height: 1;
     right: 0;
+    bottom: -0.5em;
     content: "\201D";
     color: var(--accent2)
 }
@@ -83,11 +67,8 @@ blockquote cite:before {
 }
 
 #searchbar {
-    position: sticky;
-    top: 0px;
-    padding: 0.5em;
-    /* to accomodate for input labels*/
-    z-index: 2;
+    padding: 1em;
+    padding-top: 1.4em; /* to accomodate for input labels*/
 }
 
 footer {
@@ -137,9 +118,8 @@ a {
     color: var(--accent2);
     font-weight: medium;
 }
-
 a:hover {
-    color: var(--dark);
+    color:var(--dark);
     text-decoration: None;
     transition: .2s ease-in-out;
 }
@@ -188,13 +168,13 @@ a:hover::before {
 
 .btn {
     background-color: var(--dark);
-    border: none;
+    border:none;
 }
 
 .btn:focus,
 .btn:hover {
     background-color: var(--accent2);
-    outline: 0;
+    outline:0;
 }
 
 /* label,input{
@@ -202,38 +182,37 @@ a:hover::before {
     flex-direction:column;
 } */
 
-.field-holder {
-    position: relative;
-    margin-bottom: 1.25em;
+.field-holder{
+    position:relative;
+    margin-bottom:1.25em;
 }
 
-label {
-    position: absolute;
-    color: var(--lighter);
-    top: 0.3em;
-    font-family: Arial, sans-serif !important;
-    left: 1em;
-    display: flex;
-    align-items: center;
-    cursor: text;
+label{
+    position:absolute;
+    color:var(--lighter);
+    top:0.3em;
+    font-family: Arial, sans-serif!important;
+    left:1em;
+    display:flex;
+    align-items:center;
+    cursor:text;
     transition: .2s ease-in-out;
-    z-index: 3;
+    z-index:3;
 }
 
 .nostyle {
-    outline: none;
-    color: none;
+    outline:none;
+    color:none;
     border-style: none;
-    border: none;
+    border:none;
     background-color: white;
 }
 
 .form-control:focus {
     outline: none;
-    border: none;
-    box-shadow: none
+    border:none;
+    box-shadow:none
 }
-
 .form-control {
     outline: none;
 }

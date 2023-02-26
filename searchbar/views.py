@@ -4,13 +4,21 @@ import os
 import pickle
 from django.views.decorators.csrf import csrf_protect
 from sentence_transformers.util import semantic_search
+import faiss
+from scripts import open_sql_connection
+
+conn = open_sql_connection()
+cursor = conn.cursor()
 
 files = [f for f in os.listdir(".") if os.path.isfile(f)]
 
 model = pickle.load(open("model.pickle", "rb"))
-embeddings_dataset = pickle.load(open("embeddings_dataset.pickle", "rb"))
-authors_unique = np.unique(embeddings_dataset["author"])
+# embeddings_dataset = pickle.load(open("embeddings_dataset.pickle", "rb"))
 
+sql_authors = '''select name from authors;'''
+cursor.execute(sql_authors)
+authors_unique = cursor.fetchall()
+faiss_index = faiss.read_index('index_alone.faiss')
 
 def index(request):
     return render(request, "searchbar/index.html")
@@ -31,9 +39,15 @@ def get_embeddings(text_list, tokenizer, model):
 
 def get_quote(sentence, k=30):
     sentence_embedding = model.encode([sentence])
-    scores, samples = embeddings_dataset.get_nearest_examples(
-        "embeddings", sentence_embedding, k=k
+    scores, samples = faiss_index.search(
+        sentence_embedding, k=10
     )
+    sql3 = '''
+    select * from quotes WHERE index in (1, 2, 3);
+    '''
+    cursor.execute(sql3)
+    samples = cursor.fetchall()
+    print(samples)
     return samples
 
 

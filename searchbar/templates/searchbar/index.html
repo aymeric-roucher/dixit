@@ -3,27 +3,15 @@
 
 <html lang="en">
 <link rel="icon" href="{% static 'icon/feather.png' %}" />
-<title>Quote-Finder</title>
+<title>Dixit</title>
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Quote Search</title>
-  <script src="https://cdn.websitepolicies.io/lib/cookieconsent/cookieconsent.min.js" defer></script>
   <script>window.addEventListener("load", function () { window.wpcc.init({ "border": "thin", "corners": "small", "colors": { "popup": { "background": "#f6f6f6", "text": "#000000", "border": "#555555" }, "button": { "background": "#555555", "text": "#ffffff" } } }) });</script>
 
-
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-71TRNQR9F7"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-
-    gtag('config', 'G-71TRNQR9F7');
-  </script>
-
+  <script data-goatcounter="https://quotation-finder.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -48,58 +36,65 @@
 <body>
   <article style="display:flex; flex-direction: row; justify-content: center; align-items: center">
     <div style="max-width:50em; min-width:60vw;">
-      <section class="jumbotron text-center" style="background-color: white;">
-        <img src="{% static 'icon/feather-icon.svg' %}" style="width:5em;" />
+      <section style="height:100%;display:flex;flex-direction: column;">
+        <div class="jumbotron text-center" style="background-color: white;">
+          <img src="{% static 'icon/feather-icon.svg' %}" style="width:5em;color:var(--dark);" />
+          <h1 class="jumbotron-header">Dixit</h1>
+        </div>
 
-        <h1 class="jumbotron-header">Quote Search</h1>
+        <div class="row" id="searchbar">
+          <form class="col-7" action="{% url 'searchbar' %}" autocomplete="off" method="POST" name="submitForm">
+            {% csrf_token %}
+            <div class="input-group">
+              <input type="text" class="form-control" onclick="this.placeholder = ''" name="sentence" placeholder=""
+                autocomplete="false" id="sentence_input" required>
+              <label for="sentence_input" id="label_sentence_input"><b>Search for an idea</b></label>
+              <button type="submit" class="btn input-btn">🔍</button>
+            </div>
+          </form>
+          <form class="col-5" action="{% url 'author' %}" method="POST">
+            {% csrf_token %}
+            <div class="input-group">
+              <input type="text" class="form-control" id="author_filter" name="author_name" list="authors" ,
+                autocomplete="off" required>
+              <label for="author_filter" id="label_author_filter"><b>Quotes from an author</b></label>
+              <button type="submit" class="btn input-btn">🔍</button>
+            </div>
+            <datalist id="authors">
+              {% for author in authors_list %}
+              <option value="{{author}}"></option>
+              {% endfor %}
+            </datalist>
+          </form>
+        </div>
+        <div class="row">
+          <div class="row col-7" style="display:flex;flex-direction:row;gap:0.4em;padding-left: 3em;">
+            <button type="button" class="btn btn-primary"
+              onclick="SearchConcept('Ecology is mandatory, we must protect the planet.')">🌍 Ecology</button>
+            <button type="button" class="btn btn-primary" onclick="SearchConcept('Knowledge of history is power.')">🏛
+              History</button>
+            <button type="button" class="btn btn-primary" onclick="SearchConcept('War never changes.')">⚔ War</button>
+          </div>
+          <div class="row col-5" style="display:flex;flex-direction:row;gap:0.4em;padding-left: 4em;">
+            <button type="button" class="btn btn-primary"
+              onclick="SearchAuthor('Antoine de Saint-Exupery')">Saint-Exupéry</button>
+            <button type="button" class="btn btn-primary" onclick="SearchAuthor('Lord Byron')">Lord Byron</button>
+          </div>
+          <div id="anchor" class="row col-12 text-justify" style="font-size:2em;">
+            <p style="width:100%;color:var(--dark);"><br><br>
+              <it>{{sentence}}</it>
+            </p>
+          </div>
+        </div>
       </section>
 
-      <div class="row" id="searchbar">
-        <form class="col-md-7" action="{% url 'searchbar' %}" autocomplete="off" method="POST" name="submitForm"
-          style="margin-top:0.3em;">
-          {% csrf_token %}
-          <div class="input-group">
-            <input type="text" class="form-control" onclick="this.placeholder = ''" name="sentence" placeholder=""
-              autocomplete="false" id="sentence_input" required>
-            <label for="sentence_input" id="label_sentence_input"><b>Search for an idea</b></label>
-            <button type="submit" class="btn input-btn">🔍</button>
-          </div>
-        </form>
-        <form class="col-md-5" action="{% url 'author' %}" method="POST" style="margin-top:0.3em;">
-          {% csrf_token %}
-          <div class="input-group">
-            <input type="text" class="form-control" id="author_filter" name="author_name" list="authors" ,
-              autocomplete="off" required>
-            <label for="author_filter" id="label_author_filter"><b>Quotes from an author</b></label>
-            <button type="submit" class="btn input-btn">🔍</button>
-          </div>
-          <datalist id="authors">
-            {% for author in authors_list %}
-            <option value="{{author}}"></option>
-            {% endfor %}
-          </datalist>
-        </form>
-      </div>
-      <div class="row">
-        <div class="row col-7" style="display:flex;flex-direction:row;gap:0.4em;padding-left: 3em;">
-          <button type="button" class="btn btn-primary"
-            onclick="SearchConcept('Ecology is mandatory, we must protect the planet.')">🌍 Ecology</button>
-          <button type="button" class="btn btn-primary" onclick="SearchConcept('Knowledge of history is power.')">🏛
-            History</button>
-          <button type="button" class="btn btn-primary" onclick="SearchConcept('War never changes.')">⚔ War</button>
-        </div>
-        <div class="row col-5" style="display:flex;flex-direction:row;gap:0.4em;padding-left: 4em;">
-          <button type="button" class="btn btn-primary"
-            onclick="SearchAuthor('Antoine de Saint-Exupery')">Saint-Exupéry</button>
-          <button type="button" class="btn btn-primary" onclick="SearchAuthor('Lord Byron')">Lord Byron</button>
-        </div>
-      </div>
-
-      <div class="container-fluid p-0">
+      <div class="container">
         {% for quote in quotes %}
-        <div class="quote-block text-justify">
-          <blockquote>{{ quote.quote }}</blockquote>
-          <a href="/author/{{ quote.author }}/"><b>{{ quote.author }}</b></a>
+        <div class="row quote-block">
+          <div class="card-body text-justify">
+            <blockquote>{{ quote.quote }}</blockquote>
+            <a href="/author/{{ quote.author }}/"><b>{{ quote.author }}</b></a>
+          </div>
         </div>
         {% endfor %}
       </div>
@@ -140,5 +135,13 @@
     label_author_filter.style.pointerEvents = 'none';
   });
 </script>
+{% if sentence|length > 0 %}
+<script>
+  const id = 'anchor';
+  const yourElement = document.getElementById(id);
+  const y = yourElement.getBoundingClientRect().top + window.pageYOffset;
+  window.scrollTo({ top: y, behavior: 'smooth' });
+</script>
+{% endif %}
 
 </html>
