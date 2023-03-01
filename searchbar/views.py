@@ -39,7 +39,7 @@ def get_embeddings(text_list, tokenizer, model):
 def get_quote(sentence, k=30):
     sentence_embedding = model.encode([sentence])
     _, samples = faiss_index.search(
-        sentence_embedding, k=10
+        sentence_embedding, k=k
     )
     sql3 = f'''
     SELECT quotes_result.index, quotes_result.quote, authors.name, authors.description \

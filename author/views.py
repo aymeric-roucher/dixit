@@ -19,7 +19,7 @@ def no_author(request):
 def author_summary(request, author_name):
     sql = "SELECT quote FROM quotes WHERE author = %(author_name)s;"
     cursor.execute(sql, {"author_name": author_name})
-    author_quotes = [row[0].replace("`", "'") for row in cursor.fetchmany(100)]
+    author_quotes = [row[0] for row in cursor.fetchall()]
     author_data = {
         "author_name": author_name,
         "found": False,
