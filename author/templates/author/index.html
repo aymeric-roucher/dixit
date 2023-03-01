@@ -1,15 +1,15 @@
 {%load static%}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <link rel="icon" href="{% static 'icon/feather.png' %}" />
-  <title>Dixit - Author</title>
+<link rel="icon" href="{% static 'icon/feather.png' %}" />
+<title>Dixit - Author</title>
+
 <head>
   <meta http-equiv="content-type" content="text/html" charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-  <script data-goatcounter="https://dixit.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+  <script data-goatcounter="https://dixit.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -24,26 +24,32 @@
     crossorigin="anonymous"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Alegreya+SC:wght@500&family=Gloock&family=Libre+Baskerville:ital@1&display=swap" rel="stylesheet"> 
+  <link
+    href="https://fonts.googleapis.com/css2?family=Alegreya+SC:wght@500&family=Gloock&family=Libre+Baskerville:ital@1&display=swap"
+    rel="stylesheet">
 
-  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
 </head>
 
 <body>
-  
+
   <article style="max-width:50em; margin:auto;">
-    
+
     <div id="searchbar">
-    <form action="/">
-      {% csrf_token %}
-      <button class="btn btn-secondary shadow-none" type="submit">👈 Back to searching quotes</button>
-    </form>
+      <form action="/">
+        {% csrf_token %}
+        <button class="btn btn-secondary shadow-none" type="submit">👈 Back to searching quotes</button>
+      </form>
     </div>
 
     <div class="container" style="margin:auto;">
 
       <section class="row" style="background-color: white;">
-        <section class="thumbnail-box">{% if found %}<img class="author-thumbnail" src="{{ picture_link }}" alt="">{% endif %}</section>
+        <section class="thumbnail-box">
+          {% if found %}
+          <img class="author-thumbnail" src="{{ picture_link }}" alt="">
+          {% endif %}
+        </section>
         <h1 class="jumbotron-header" style="margin:auto;margin-left:1em;">{{ author_name }}</h1>
         {% if found %}
         <div class="justified-textbox">
@@ -58,14 +64,16 @@
         <h4 style="margin:auto;">* * *</h4>
       </section>
       <section class="row">
-        <h5 style="margin:auto;"><i>{{ author_name }} quotes</i></h5>
+        <h5 style="margin:auto;"><i>Quotes:</i></h5>
       </section>
 
       <div class="container">
         {% for quote in other_by_author %}
-        <div class="row quote-block">
+        <div class="row shadow quote-block">
           <div class="card-body text-justify">
-            <blockquote><p>{{ quote }}</p></blockquote>
+            <blockquote>
+              <p>{{ quote }}</p>
+            </blockquote>
           </div>
         </div>
         {% endfor %}

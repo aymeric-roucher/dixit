@@ -19,8 +19,7 @@ body {
 
 
 .quote-block {
-    box-shadow: 4px 4px 4px 1px rgba(0, 0, 0, .2);
-    margin: 20px;
+    margin: 15px;
     padding: 0px;
     border-radius: 5px;
     z-index: 5;
@@ -67,9 +66,9 @@ blockquote cite:before {
 }
 
 #searchbar {
-    padding: 1em;
-    padding-top: 1.4em;
-    /* to accomodate for input labels*/
+    padding: 0.5em;
+    padding-bottom: 0;
+    margin-bottom: 0;
 }
 
 footer {
@@ -148,7 +147,6 @@ a:hover::before {
 .input-group {
     display: flex;
     flex-direction: row;
-    width: 100%;
     color: var(--dark);
     border-radius: 4px;
 }
@@ -176,17 +174,15 @@ a:hover::before {
 .btn:focus,
 .btn:hover {
     background-color: var(--accent2);
-    outline: none!important;
-}
-.btn:active, .btn:active:focus, .btn:disabled {
-    background-color: var(--accent2)!important;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6)!important;
+    outline: none !important;
 }
 
-/* label,input{
-    display:flex;
-    flex-direction:column;
-} */
+.btn:active,
+.btn:active:focus,
+.btn:disabled {
+    background-color: var(--accent2) !important;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6) !important;
+}
 
 .field-holder {
     position: relative;
@@ -228,3 +224,10 @@ label {
     border-radius: 0px 4px 4px 0px;
 }
 
+.ideabox {
+    display: flex;
+    flex-direction: row;
+    gap: 0.4em;
+    padding-left: 2.5em;
+    margin-top: 0.5em;
+}

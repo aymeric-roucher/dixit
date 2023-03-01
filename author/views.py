@@ -2,10 +2,7 @@ from django.shortcuts import render
 import requests
 import pandas as pd
 from django.views.decorators.csrf import csrf_protect
-from scripts import open_sql_connection
-
-conn = open_sql_connection()
-cursor = conn.cursor()
+from scripts import get_quotes_from_author, get_author_description
 
 
 def no_author(request):
@@ -17,9 +14,7 @@ def no_author(request):
 
 @csrf_protect
 def author_summary(request, author_name):
-    sql = "SELECT quote FROM quotes WHERE author = %(author_name)s;"
-    cursor.execute(sql, {"author_name": author_name})
-    author_quotes = [row[0] for row in cursor.fetchall()]
+    author_quotes = get_quotes_from_author(author_name)
     author_data = {
         "author_name": author_name,
         "found": False,
@@ -27,9 +22,7 @@ def author_summary(request, author_name):
         "picture_link": None,
         "other_by_author": author_quotes,
     }
-    sql = "SELECT description, extract_html, thumbnail_url FROM authors WHERE name = %(author_name)s;"
-    cursor.execute(sql, {"author_name": author_name})
-    author_row = cursor.fetchone()
+    author_row = get_author_description(author_name)
     if author_row is None:
         return render(request, "author/index.html", author_data)
 

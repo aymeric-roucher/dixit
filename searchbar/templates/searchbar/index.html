@@ -37,16 +37,24 @@
   <article style="display:flex; flex-direction: row; justify-content: center; align-items: center">
     <div style="max-width:50em; min-width:60vw;">
 
-      <!-- Header with searchbar -->
 
-      <section style="height:100%;display:flex;flex-direction: column;">
-        <div class="jumbotron text-center" style="background-color: white;">
-          <img src="{% static 'icon/feather-icon.svg' %}" style="width:5em;color:var(--dark);" />
-          <h1 class="jumbotron-header">Dixit</h1>
+      <section style="display:flex;flex-direction: column;">
+        <!-- Header -->
+        <div style="min-height:45vh;padding-top:20vh;display:flex;flex-direction:row;align-items:center;">
+          <div style="margin:auto;display:flex;flex-direction:column;align-items:center;">
+            <div style="display:flex;flex-direction:row;align-items:center;">
+              <img src="{% static 'icon/feather-icon.svg' %}" style="width:5em;color:var(--dark);" />
+              <h1 class="jumbotron-header" style="font-size:4em;margin-left:.3em;">Dixit</h1>
+            </div>
+            <h1 class="text-center" style="font-size:1.5em;width:100%;color:var(--dark);margin-top:0.7em;"><i>Find the
+                most eloquent phrasing of your idea<br>in a collection of historical quotes.</i></h1>
+          </div>
         </div>
 
+        <!-- Searchbar -->
         <div class="row" id="searchbar">
-          <form class="col-7" action="{% url 'searchbar' %}" autocomplete="off" method="POST" name="submitForm">
+          <form class="col-md-7" action="{% url 'searchbar' %}" autocomplete="off" method="POST" name="submitForm"
+            style="margin-top:1.2em;">
             {% csrf_token %}
             <div class="input-group">
               <input type="text" class="form-control" onclick="this.placeholder = ''" name="sentence" placeholder=""
@@ -55,7 +63,7 @@
               <button type="submit" class="btn input-btn  shadow-none">🔍</button>
             </div>
           </form>
-          <form class="col-5" action="{% url 'author' %}" method="POST">
+          <form class="col-md-5" action="{% url 'author' %}" method="POST" style="margin-top:1.2em;">
             {% csrf_token %}
             <div class="input-group">
               <input type="text" class="form-control" id="author_filter" name="author_name" list="authors" ,
@@ -69,23 +77,28 @@
               {% endfor %}
             </datalist>
           </form>
-        </div>
-        <div class="row">
-          <div class="row col-7" style="display:flex;flex-direction:row;gap:0.4em;padding-left: 3em;">
+          <div class="row col-md-7 ideabox" style="margin-right: 1em;">
             <button type="button" class="btn btn-primary"
               onclick="SearchConcept('The most pressing issue in ecology is to make people care.')">🌍 Ecology</button>
-            <button type="button" class="btn btn-primary shadow-none" onclick="SearchConcept('Knowledge of history is powerful.')">🏛
+            <button type="button" class="btn btn-primary shadow-none"
+              onclick="SearchConcept('Countries who ignore their past are doomed to live it again.')">🏛
               History</button>
-            <button type="button" class="btn btn-primary shadow-none" onclick="SearchConcept('No country will benefit from a long war.')">⚔ War</button>
+            <button type="button" class="btn btn-primary shadow-none"
+              onclick="SearchConcept('No country ever benefits from a long war.')">⚔ War</button>
+            <button type="button" class="btn btn-primary shadow-none" onclick="SearchConcept('Love is foolish.')">🌹
+              Love</button>
           </div>
-          <div class="row col-5" style="display:flex;flex-direction:row;gap:0.4em;padding-left: 4em;">
+          <div class="row col-md-5 ideabox">
             <button type="button" class="btn btn-primary shadow-none"
               onclick="SearchAuthor('Antoine de Saint-Exupéry')">Saint-Exupéry</button>
-            <button type="button" class="btn btn-primary shadow-none" onclick="SearchAuthor('Lord Byron')">Lord Byron</button>
+            <button type="button" class="btn btn-primary shadow-none" onclick="SearchAuthor('Lord Byron')">Lord
+              Byron</button>
           </div>
-          <div id="anchor" class="row col-12 text-center" style="font-size:2em;">
-            <p style="width:100%;color:var(--accent);"><br><br>
-              <i>{{sentence}}</i>
+          <div id="anchor" class="row col-12 text-center">
+            <p style="width:100%;color:var(--accent);margin-top:1em;font-size:1.5em;">
+              {% if sentence|length > 0 %}
+              <i>"{{sentence}}"</i>
+              {% endif %}
             </p>
           </div>
         </div>
@@ -95,7 +108,7 @@
 
       <div class="container">
         {% for quote in quotes %}
-        <div class="row quote-block">
+        <div class="row shadow quote-block">
           <div class="card-body text-justify">
             <blockquote>{{ quote.quote }}</blockquote>
             <a href="/author/{{ quote.author }}/"><b>{{ quote.author }}</b>, <i>{{ quote.author_description }}</i></a>
@@ -131,13 +144,13 @@
   sentence_input.addEventListener("focus", function () {
     label_sentence_input.style.color = 'var(--dark)';
     label_sentence_input.style.fontSize = '.75em';
-    label_sentence_input.style.top = '-1.75em';
+    label_sentence_input.style.top = '-1.5em';
     label_sentence_input.style.pointerEvents = 'none';
   });
   author_filter.addEventListener("focus", function () {
     label_author_filter.style.color = 'var(--dark)';
     label_author_filter.style.fontSize = '.75em';
-    label_author_filter.style.top = '-1.75em';
+    label_author_filter.style.top = '-1.5em';
     label_author_filter.style.pointerEvents = 'none';
   });
 </script>
