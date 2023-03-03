@@ -1,9 +1,7 @@
 from django.shortcuts import render
-import requests
-import pandas as pd
 from django.views.decorators.csrf import csrf_protect
-from scripts import get_quotes_from_author, get_author_description
-
+from scripts import get_quotes_from_author, get_author_extract
+import time
 
 def no_author(request):
     if request.method == "POST":
@@ -14,6 +12,7 @@ def no_author(request):
 
 @csrf_protect
 def author_summary(request, author_name):
+    t = time.time()
     author_quotes = get_quotes_from_author(author_name)
     author_data = {
         "author_name": author_name,
@@ -22,7 +21,9 @@ def author_summary(request, author_name):
         "picture_link": None,
         "other_by_author": author_quotes,
     }
-    author_row = get_author_description(author_name)
+    print("AUTHOR TIME 0", time.time() - t)
+
+    author_row = get_author_extract(author_name)
     if author_row is None:
         return render(request, "author/index.html", author_data)
 
@@ -34,4 +35,5 @@ def author_summary(request, author_name):
             "picture_link": thumbnail_url,
         }
     )
+    print("AUTHOR TIME 1", time.time() - t)
     return render(request, "author/index.html", author_data)

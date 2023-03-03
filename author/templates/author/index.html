@@ -31,10 +31,9 @@
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
 </head>
 
-<body>
+<body class="col" style="justify-content: center; align-items:center;">
 
-  <article style="max-width:50em; margin:auto;">
-
+  <article>
     <div id="searchbar">
       <form action="/">
         {% csrf_token %}
@@ -50,9 +49,9 @@
           <img class="author-thumbnail" src="{{ picture_link }}" alt="">
           {% endif %}
         </section>
-        <h1 class="jumbotron-header" style="margin:auto;margin-left:1em;">{{ author_name }}</h1>
+        <h1 class="jumbotron-header" style="margin:auto;margin-left:5vw;">{{ author_name }}</h1>
         {% if found %}
-        <div class="justified-textbox">
+        <div class="justified-textbox" style="padding:0.5em;">
           {{ author_summary|safe }}
         </div>
         {% else %}
@@ -60,24 +59,23 @@
         {% endif %}
         <p></p>
       </section>
-      <section class="row">
-        <h4 style="margin:auto;">* * *</h4>
-      </section>
-      <section class="row">
-        <h5 style="margin:auto;"><i>Quotes:</i></h5>
-      </section>
+    </div>
+    </div>
+    <div class="row">
+      <h4 style="margin:auto;">* * *</h4>
+    </div>
+    <div class="row">
+      <h5 style="margin:auto;"><i>{{ other_by_author|length }} quotes:</i></h5>
+    </div>
 
-      <div class="container">
-        {% for quote in other_by_author %}
-        <div class="row shadow quote-block">
-          <div class="card-body text-justify">
-            <blockquote>
-              <p>{{ quote }}</p>
-            </blockquote>
-          </div>
-        </div>
-        {% endfor %}
+    <div>
+      {% for quote in other_by_author %}
+      <div class="shadow quote-card">
+        <blockquote>
+          {{ quote }}
+        </blockquote>
       </div>
+      {% endfor %}
     </div>
   </article>
 

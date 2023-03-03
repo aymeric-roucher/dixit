@@ -33,28 +33,30 @@
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
 </head>
 
-<body>
-  <article style="display:flex; flex-direction: row; justify-content: center; align-items: center">
-    <div style="max-width:50em; min-width:60vw;">
+<body style="display:flex;flex-direction:column;justify-content: center; align-items:center;">
+  <!-- Header -->
+  <div class="row" style="min-height:45vh;padding-top:20vh;align-items:center;">
+    <div style="margin:auto;display:flex;flex-direction:column;align-items:center;padding:0.5em;">
+      <div style="display:flex;flex-direction:row;align-items:center;">
+        <img src="{% static 'icon/feather-icon.svg' %}" style="width:5em;" class="filter-color" />
+        <h1 class="jumbotron-header" style="font-size:4em;margin-left:.2em;">Dixit</h1>
+      </div>
+      <h1 class="text-center catchphrase" style="font-size:1.5em;width:100%;color:var(--dark);margin-top:0.7em;">
+        <i>Find the
+          most eloquent phrasing of your idea <br>in a collection of historical quotes.</i>
+      </h1>
+    </div>
+  </div>
 
+  <article>
 
-      <section style="display:flex;flex-direction: column;">
-        <!-- Header -->
-        <div style="min-height:45vh;padding-top:20vh;display:flex;flex-direction:row;align-items:center;">
-          <div style="margin:auto;display:flex;flex-direction:column;align-items:center;">
-            <div style="display:flex;flex-direction:row;align-items:center;">
-              <img src="{% static 'icon/feather-icon.svg' %}" style="width:5em;" class="filter-color" />
-              <h1 class="jumbotron-header" style="font-size:4em;margin-left:.2em;">Dixit</h1>
-            </div>
-            <h1 class="text-center" style="font-size:1.5em;width:100%;color:var(--dark);margin-top:0.7em;"><i>Find the
-                most eloquent phrasing of your idea<br>in a collection of historical quotes.</i></h1>
-          </div>
-        </div>
+    <div class="col" style="padding:0;">
 
-        <!-- Searchbar -->
-        <div class="row" id="searchbar">
-          <form class="col-md-7" action="{% url 'searchbar' %}" autocomplete="off" method="POST" name="submitForm"
-            style="margin-top:1.2em;">
+      <!-- Searchbar -->
+      <div class="row" id="searchbar" style="padding:0;margin:0;">
+        <div class="col-md-7">
+          <form class="row" action="{% url 'searchbar' %}" autocomplete="off" method="POST" name="submitForm"
+            style="padding:1.1em;padding-bottom:0.5em;">
             {% csrf_token %}
             <div class="input-group">
               <input type="text" class="form-control" onclick="this.placeholder = ''" name="sentence" placeholder=""
@@ -63,7 +65,22 @@
               <button type="submit" class="btn input-btn  shadow-none">🔍</button>
             </div>
           </form>
-          <form class="col-md-5" action="{% url 'author' %}" method="POST" style="margin-top:1.2em;">
+          <div class="row" style="gap:0.4em;padding-left:1.1em;">
+            <button type="button" class="btn btn-primary"
+              onclick="SearchConcept('The most pressing issue in ecology is to make people care.')">🌍
+              Ecology</button>
+            <button type="button" class="btn btn-primary shadow-none"
+              onclick="SearchConcept('Countries who ignore their past are doomed to live it again.')">🏛
+              History</button>
+            <button type="button" class="btn btn-primary shadow-none"
+              onclick="SearchConcept('No country ever benefits from a long war.')">⚔ War</button>
+            <button type="button" class="btn btn-primary shadow-none" onclick="SearchConcept('Love is foolish.')">🌹
+              Love</button>
+          </div>
+        </div>
+
+        <div class="col-md-5">
+          <form class="row" action="{% url 'author' %}" method="POST" style="padding:1.1em;padding-bottom:0.5em;">
             {% csrf_token %}
             <div class="input-group">
               <input type="text" class="form-control" id="author_filter" name="author_name" list="authors" ,
@@ -77,45 +94,36 @@
               {% endfor %}
             </datalist>
           </form>
-          <div class="row col-md-7 ideabox" style="margin-right: 1em;">
-            <button type="button" class="btn btn-primary"
-              onclick="SearchConcept('The most pressing issue in ecology is to make people care.')">🌍 Ecology</button>
-            <button type="button" class="btn btn-primary shadow-none"
-              onclick="SearchConcept('Countries who ignore their past are doomed to live it again.')">🏛
-              History</button>
-            <button type="button" class="btn btn-primary shadow-none"
-              onclick="SearchConcept('No country ever benefits from a long war.')">⚔ War</button>
-            <button type="button" class="btn btn-primary shadow-none" onclick="SearchConcept('Love is foolish.')">🌹
-              Love</button>
-          </div>
-          <div class="row col-md-5 ideabox">
+          <div class="row" style="gap:0.4em;padding-left:1.1em;">
             <button type="button" class="btn btn-primary shadow-none"
               onclick="SearchAuthor('Antoine de Saint-Exupéry')">Saint-Exupéry</button>
             <button type="button" class="btn btn-primary shadow-none" onclick="SearchAuthor('Lord Byron')">Lord
               Byron</button>
           </div>
-          <div id="anchor" class="row col-12 text-center">
-            <p style="width:100%;color:var(--accent);margin-top:1em;font-size:1.5em;">
-              {% if sentence|length > 0 %}
-              <i>"{{sentence}}"</i>
-              {% endif %}
-            </p>
-          </div>
         </div>
-      </section>
-
-      <!-- Quotes -->
-
-      <div class="container">
-        {% for quote in quotes %}
-        <div class="row shadow quote-block">
-          <div class="card-body text-justify">
-            <blockquote>{{ quote.quote }}</blockquote>
-            <a href="/author/{{ quote.author }}/"><b>{{ quote.author }}</b>, <i>{{ quote.author_description }}</i></a>
-          </div>
-        </div>
-        {% endfor %}
       </div>
+      <div id="anchor" class="col-12 text-center">
+        <p style="width:100%;color:var(--accent);margin-top:1em;font-size:1.5em;">
+          {% if sentence|length > 0 %}
+          <i>"{{sentence}}"</i>
+          {% endif %}
+        </p>
+      </div>
+    </div>
+
+    <!-- Quotes -->
+
+    <div>
+      {% for quote in quotes %}
+      <div class="shadow quote-card">
+        <blockquote>{{ quote.quote }}</blockquote>
+        <div>
+          <a class="quote-card-author" href="/author/{{ quote.author }}/">
+            <b>{{ quote.author }}</b>, <i>{{ quote.author_description }}</i>
+          </a>
+        </div>
+      </div>
+      {% endfor %}
     </div>
   </article>
 
