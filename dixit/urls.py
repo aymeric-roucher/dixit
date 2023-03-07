@@ -16,10 +16,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import redirect
+from .sitemaps import StaticSitemap
+from django.contrib.sitemaps.views import sitemap
+
+
+sitemaps = {
+    'static':StaticSitemap, #add StaticSitemap to the dictionary
+}
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', lambda req: redirect('/searchbar/')),
     path('author/', include('author.urls'), name="author"),
     path('searchbar/', include('searchbar.urls'), name="searchbar"),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 ]
+ 
