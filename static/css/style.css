@@ -4,11 +4,11 @@
 
 body {
     --dark: #5e3915;
-    --accent: #396150;
-    --lighter: #be7b44;
-    --lighter_transparent: #be7b44b0;
+    --accent: #1b454b;
+    --lighter: #aa7040;
+    --lighter_transparent: #aa7040ab;
     --light: #eedaa4;
-    --accent2: #64917e;
+    --accent2: #3e919e;
     min-height: 100vh;
     display: flex;
     flex-direction: column;

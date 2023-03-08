@@ -57,3 +57,7 @@ def get_author_extract(author_name:str):
     sql = "SELECT description, extract_html, thumbnail_url FROM authors WHERE name = %(author_name)s;"
     SQL_CURSOR.execute(sql, {"author_name": author_name})
     return SQL_CURSOR.fetchone()
+
+def get_similar_authors(author_name:str):
+    index = AUTHORS_LIST.index(author_name)
+    return AUTHORS_LIST[index-3:index] + AUTHORS_LIST[index+1:index+4]
