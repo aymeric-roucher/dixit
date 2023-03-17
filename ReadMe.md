@@ -72,4 +72,4 @@ On the other hand, I hosted the `authors` table in the POSTGRESQL database propo
 
 # Try it out
 
-The site is available at [dixit.app](https://dixit.app/). Try it out, and please leave me some feedback! 😃
+The site is available at [dixit.app](https://dixit.app/). You're welcome to try it out, and leave me some feedback! 😃

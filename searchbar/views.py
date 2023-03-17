@@ -1,8 +1,6 @@
 from django.shortcuts import render
-import os
 from django.views.decorators.csrf import csrf_protect
 from scripts import search_closest_quotes, AUTHORS_LIST
-
 
 def index(request):
     return render(request, "searchbar/index.html")

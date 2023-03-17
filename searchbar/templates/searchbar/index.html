@@ -41,7 +41,7 @@
         <img src="{% static 'icon/feather-icon.svg' %}" alt="Feather that could be used for writing in old times." style="width:5em;"/>
         <h1 class="jumbotron-header" style="font-size:4em;margin-left:.1em;">Dixit</h1>
       </div>
-      <h1 class="text-center catchphrase" style="font-size:1.5em;width:100%;color:var(--lighter);margin-top:0.7em;">
+      <h1 class="text-center catchphrase" style="font-size:1.5em;width:100%;color:var(--accent);margin-top:0.7em;">
         <i>Find the
           most eloquent phrasing of your idea <br>in a collection of historical quotes.</i>
       </h1>
@@ -54,8 +54,8 @@
       <!-- Searchbar -->
       <div class="row" id="searchbar" style="padding:0;margin:0;">
         <div class="col-md-7">
-          <form class="row" action="{% url 'searchbar' %}" autocomplete="off" method="POST" name="submitForm"
-            style="padding:1.1em;padding-bottom:0.5em;">
+          <form class="row" action="{% url 'searchbar' %}" autocomplete="off" method="POST" name="submitForm" id="sentenceForm"
+            style="padding:1.1em;padding-bottom:0.5em;" onsubmit="showLoadingAnimation(); return false;" >
             {% csrf_token %}
             <div class="input-group">
               <input type="text" class="form-control" onclick="this.placeholder = ''" name="sentence" placeholder=""
@@ -101,7 +101,10 @@
         </div>
       </div>
       <div id="anchor" class="col-12 text-center">
-        <p style="width:100%;color:var(--accent);margin-top:1em;font-size:1.5em;">
+        <!-- Spinning loading icon icon -->
+        <div style="padding:1.5em;display:flex;"><div id="loader"></div></div>
+
+        <p style="width:100%;color:var(--lighter);font-size:1.5em;">
           {% if sentence|length > 0 %}
           <i>"{{sentence}}"</i>
           {% endif %}
@@ -133,6 +136,14 @@
 <!-- Scripts -->
 
 <script>
+
+  function showLoadingAnimation() {
+    var div = document.getElementById('loader');
+    div.style.display = 'block';
+    var form = document.getElementById('sentenceForm')
+    form.submit();
+ }
+
   var sentence_input = document.getElementById("sentence_input");
 
   var label_sentence_input = document.getElementById("label_sentence_input");
