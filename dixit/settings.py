@@ -28,7 +28,7 @@ with open(BASE_DIR / 'etc/secret_key.txt') as f:
     SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0:8000', 'dixit.up.railway.app', 'dixit.app']
 
@@ -36,6 +36,7 @@ ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0:8000', 'dixit.up.railway.app', 'dixit.app
 # Application definition
 
 INSTALLED_APPS = [
+    'dixit',
     'searchbar',
     'author',
     'django.contrib.admin',
@@ -88,14 +89,7 @@ WSGI_APPLICATION = 'dixit.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    },
-    'author_search_author': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'author_db.sqlite3',
-    }
+    'default': {}
 }
 
 

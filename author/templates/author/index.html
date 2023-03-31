@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <link rel="icon" href="{% static 'icon/feather.png' %}" />
-<title>Dixit - Author</title>
+<title>Dixit - Quotes by Author: {{ name }}</title>
 
 <head>
   <meta http-equiv="content-type" content="text/html" charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <meta name="description" content="Quotations from author {{author_name}}. {{author_summary}}">
+  <meta name="description" content="Find the perfect historical quote with Dixit's AI semantic search. Explore philosophical, inspirational, and motivational short quotes from {{name}}. Try it now!">
 
   <script data-goatcounter="https://dixit.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 
@@ -53,9 +53,9 @@
         <section class="thumbnail-box">
           <img class="author-thumbnail" src="{{ picture_link }}" alt="">
         </section>
-        <h1 class="jumbotron-header" style="margin:auto;margin-left:5vw;">{{ author_name }}</h1>
+        <h1 class="jumbotron-header" style="margin:auto;margin-left:5vw;">{{ name }}</h1>
         {% else %}
-        <h1 class="jumbotron-header text-center" style="margin:auto;padding:0.5em;">{{ author_name }}</h1>
+        <h1 class="jumbotron-header text-center" style="margin:auto;padding:0.5em;">{{ name }}</h1>
         {% endif %}
 
         {% if found %}
@@ -70,10 +70,10 @@
     </div>
     </div>
     <div class="row">
-      <h4 style="margin:auto;">* * *</h4>
+      <h3 style="margin:auto;">* * *</h4>
     </div>
     <div class="row">
-      <h5 style="margin:auto;"><i>{{ other_by_author|length }} quotes:</i></h5>
+      <h3 style="margin:auto;"><i>{{ other_by_author|length }} quotes:</i></h5>
     </div>
 
     <div>
@@ -87,7 +87,7 @@
     </div>
 
     <div class="row">
-      <h6 style="margin:auto;padding-top:1em;"><i>Other suggested authors:</i></h6>
+      <h3 style="margin:auto;padding-top:1em;"><i>Other suggested authors:</i></h6>
     </div>
     <div class="row" style="gap:0.4em;padding:1em;">
       {% for author in suggested_authors %}

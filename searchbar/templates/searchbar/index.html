@@ -3,13 +3,13 @@
 
 <html lang="en">
 <link rel="icon" href="{% static 'icon/feather.png' %}" />
-<title>Dixit</title>
+<title>Dixit - Semantic Search for Historical Quotes</title>
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <meta name="description" content="Search for the closest rephrasing of your idea amongst quotations from famous historical figures. Semantic search powered by AI.">
+  <meta name="description" content="Find the perfect historical quote with Dixit's AI semantic search. Explore philosophical, inspirational, and motivational short quotes from history. Try it now!">
 
   <!-- Light analytics -->
   <script data-goatcounter="https://dixit.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
@@ -38,13 +38,13 @@
   <div class="row head">
     <div style="margin:auto;display:flex;flex-direction:column;align-items:center;padding:0.5em;">
       <div style="display:flex;flex-direction:row;align-items:center;">
-        <img src="{% static 'icon/feather-icon.svg' %}" alt="Feather that could be used for writing in old times." style="width:5em;"/>
+        <img src="{% static 'icon/feather-icon.svg' %}" alt="Feather that could be used for writing quotes in ancient times." style="width:5em;"/>
         <h1 class="jumbotron-header" style="font-size:4em;margin-left:.1em;">Dixit</h1>
       </div>
-      <h1 class="text-center catchphrase" style="font-size:1.5em;width:100%;color:var(--accent);margin-top:0.7em;">
+      <h2 class="text-center catchphrase" style="font-size:1.5em;width:100%;color:var(--accent);margin-top:0.7em;">
         <i>Find the
           most eloquent phrasing of your idea <br>in a collection of historical quotes.</i>
-      </h1>
+      </h2>
     </div>
   </div>
 
@@ -79,12 +79,11 @@
         </div>
 
         <div class="col-md-5">
-          <form class="row" action="{% url 'author' %}" method="POST" style="padding:1.1em;padding-bottom:0.5em;">
-            {% csrf_token %}
+          <form class="row" action="{% url 'search_author' %}" method="GET" style="padding:1.1em;padding-bottom:0.5em;">
             <div class="input-group">
-              <input type="text" class="form-control" id="author_filter" name="author_name" list="authors" ,
+              <input type="text" class="form-control" id="author_filter" name="name" list="authors" ,
                 autocomplete="off" required>
-              <label for="author_filter" id="label_author_filter"><b>Quotes from an author</b></label>
+              <label for="author_filter" id="label_author_filter"><b>Explore quotes from an author</b></label>
               <button type="submit" class="btn input-btn  shadow-none">🔍</button>
             </div>
             <datalist id="authors" autocomplete="off">
@@ -104,11 +103,11 @@
         <!-- Spinning loading icon icon -->
         <div style="padding:1.5em;display:flex;"><div id="loader"></div></div>
 
-        <p style="width:100%;color:var(--lighter);font-size:1.5em;">
+        <h3 style="width:100%;color:var(--lighter);font-size:1.5em;">
           {% if sentence|length > 0 %}
           <i>"{{sentence}}"</i>
           {% endif %}
-        </p>
+        </h3>
       </div>
     </div>
 

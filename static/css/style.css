@@ -3,12 +3,12 @@
 }
 
 body {
-    --dark: #5e3915;
-    --accent: #396150;
-    --lighter: #9e6232;
+    --dark: #583d21;
+    --accent: #396155;
+    --lighter: #a16c41;
     --lighter_transparent: #b36f38b4;
     --light: #e0c67d;
-    --accent2: #64917e;
+    --accent2: #369478;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -281,12 +281,12 @@ label {
 
 
 @keyframes spinner {
-0% {
-    transform: translate3d(-50%, -50%, 0) rotate(0deg);
-}
-100% {
-    transform: translate3d(-50%, -50%, 0) rotate(360deg);
-}
+    0% {
+        transform: translate3d(-50%, -50%, 0) rotate(0deg);
+    }
+    100% {
+        transform: translate3d(-50%, -50%, 0) rotate(360deg);
+    }
 }
 
 #loader{

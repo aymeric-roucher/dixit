@@ -50,14 +50,17 @@ def search_closest_quotes(sentence: str, k: int=15) -> pd.DataFrame:
     quotes = quotes.sort_values("scores", ascending=True) # lower is better
     return quotes
 
-def get_quotes_from_author(author_name:str):
-    return QUOTES_DATASET.loc[QUOTES_DATASET['author'] == author_name, 'quote']
+def get_quotes_from_author(name:str):
+    return QUOTES_DATASET.loc[QUOTES_DATASET['author'] == name, 'quote']
 
-def get_author_extract(author_name:str):
-    sql = "SELECT description, extract_html, thumbnail_url FROM authors WHERE name = %(author_name)s;"
-    SQL_CURSOR.execute(sql, {"author_name": author_name})
+def get_author_extract(name:str):
+    sql = "SELECT description, extract_html, thumbnail_url FROM authors WHERE name = %(name)s;"
+    SQL_CURSOR.execute(sql, {"name": name})
     return SQL_CURSOR.fetchone()
 
-def get_similar_authors(author_name:str):
-    index = AUTHORS_LIST.index(author_name)
-    return AUTHORS_LIST[index-3:index] + AUTHORS_LIST[index+1:index+4]
+def get_similar_authors(name:str):
+    try:
+        index = AUTHORS_LIST.index(name)
+        return AUTHORS_LIST[index-3:index] + AUTHORS_LIST[index+1:index+4]
+    except: # if author does not exist
+        return AUTHORS_LIST[:6]
