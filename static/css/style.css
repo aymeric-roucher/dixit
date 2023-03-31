@@ -278,3 +278,33 @@ label {
         padding-top: 0;
     }
 }
+
+
+@keyframes spinner {
+0% {
+    transform: translate3d(-50%, -50%, 0) rotate(0deg);
+}
+100% {
+    transform: translate3d(-50%, -50%, 0) rotate(360deg);
+}
+}
+
+#loader{
+display:none;
+margin:auto;
+}
+
+#loader::before {
+animation: 1.5s linear infinite spinner;
+animation-play-state: inherit;
+border: solid 5px var(--light);
+border-bottom-color: var(--lighter);
+border-radius: 50%;
+content: "";
+height: 2em;
+width: 2em;
+position: absolute;
+top: 1.7em;
+transform: translate3d(-50%, -50%, 0);
+will-change: transform;
+} 
